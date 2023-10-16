@@ -1,0 +1,126 @@
+html {
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 14px;
+	letter-spacing: 0.04em;
+	background-color: rgb(186, 234, 244);
+	color: #333;
+	line-height: 1.5;
+}
+
+body {
+	margin: 0;
+}
+
+main {
+	max-width: 1000px;
+	padding: 16px;
+	background-color: white;
+}
+
+@media (min-width: 768px) {
+	main {
+		margin: 16px auto;
+	}
+}
+
+h1 {
+	text-align: center;
+	margin-bottom: -8px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-weight: normal;
+	margin-left: 0;
+}
+
+h3 {
+	margin-top: 10rem;
+}
+
+h4 {
+	margin-top: 4rem;
+}
+
+h4 {
+	font-weight: bold;
+}
+
+h1 + h2,
+h2 + h3,
+h3 + h4,
+#default-layout {
+	margin-top: 0;
+}
+
+h1 + blockquote {
+	margin: 0 auto 4rem;
+	max-width: 400px;
+	text-align: center;
+	font-style: italic;
+}
+
+/** table */
+table {
+	border-collapse: collapse;
+	display: block;
+	overflow: auto;
+	max-width: fit-content;
+}
+
+td,
+th {
+	border: 1px solid black;
+	padding: 8px;
+}
+
+table td {
+	white-space: nowrap;
+}
+
+table td:last-of-type {
+	white-space: unset;
+	min-width: 240px;
+}
+
+@media (min-width: 768px) {
+	.example-wrapper {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 16px;
+	}
+	.example-wrapper > div {
+		overflow: auto;
+	}
+}
+
+ul {
+	padding-left: 32px;
+	margin: 8px 0;
+}
+
+@media (max-width: 768px) {
+	li {
+		margin: 4px 0;
+	}
+}
+
+/** scoll stuff */
+* {
+	--dark: #ccc;
+	--light: var(--bg-color);
+	scrollbar-width: thin;
+	scrollbar-color: var(--dark) var(--light);
+	scroll-behavior: smooth;
+}
+*::-webkit-scrollbar-track {
+	background: var(--light);
+}
+*::-webkit-scrollbar-thumb {
+	background-color: var(--dark);
+}
+*::-webkit-scrollbar {
+	width: 7px;
+}
