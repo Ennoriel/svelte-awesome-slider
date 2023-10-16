@@ -19,7 +19,6 @@ jobs:
           node-version: 18
           registry-url: 'https://registry.npmjs.org'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm prebuild
       - run: pnpm package
       - run: pnpm publish
         env:

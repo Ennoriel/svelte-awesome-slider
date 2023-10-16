@@ -24,17 +24,15 @@
 ## Summary
 
 <!-- SUMMARY -->
-
 - [Summary](#summary)
 - [Examples](#examples)
-  - [common props](#common-props)
-  - [track customization](#track-customization)
-  - [thumb customization](#thumb-customization)
-  - [vertical slider](#vertical-slider)
+  - [Common props](#common-props)
+  - [Track customization](#track-customization)
+  - [Thumb customization](#thumb-customization)
+  - [Vertical slider](#vertical-slider)
 - [API](#api)
   - [Props](#props)
   - [CSS variables](#css-variables)
-- [bugs](#bugs)
 <!-- ¤SUMMARY -->
 
 ## Examples
@@ -108,17 +106,17 @@ The Slider component has the following props:
 
 <!-- PROPS_Slider.svelte -->
 
-| name          | type                             | default value  | usage                                                                                                |
-| ------------- | -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| min           | `string &#124; number`           | `0`            | min value of the slider                                                                              |
-| max           | `string &#124; number`           | `100`          | max value of the slider                                                                              |
-| step          | `string &#124; number`           | `1`            | step value of the slider                                                                             |
-| value         | `number`                         | `50`           | value of the slider                                                                                  |
-| ariaValueText | `(current: number)`              |                | method to convert the current value to a string representation of the value for the aria-value props |
-| name          | `string &#124; undefined`        | `undefined`    | input name of the slider                                                                             |
-| direction     | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider                                                                              |
-| reverse       | `boolean`                        | `false`        | if true, the min and max values will be reversed                                                     |
-| keyboardOnly  | `boolean`                        | `false`        | disables mouse events                                                                                |
+| name | type | default value | usage |
+| --- | --- | --- | --- |
+| min | `string &#124; number` | `0` | min value of the slider |
+| max | `string &#124; number` | `100` | max value of the slider |
+| step | `string &#124; number` | `1` | step value of the slider |
+| value | `number` | `50` | value of the slider |
+| ariaValueText | `(current: number)` |  | method to convert the current value to a string representation of the value for the aria-value props |
+| name | `string &#124; undefined` | `undefined` | input name of the slider |
+| direction | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider |
+| reverse | `boolean` | `false` | if true, the min and max values will be reversed |
+| keyboardOnly | `boolean` | `false` | disables mouse events |
 
 <!-- ~PROPS_Slider.svelte -->
 
