@@ -29,6 +29,12 @@
 	/** disables mouse events */
 	export let keyboardOnly: boolean = false;
 
+	/** aria-label props */
+	export let ariaLabel: string | undefined = undefined;
+
+	/** aria-labelledby props */
+	export let ariaLabelledBy: string | undefined = undefined;
+
 	let isDragging = false;
 	let slider: HTMLDivElement | undefined = undefined;
 
@@ -122,14 +128,16 @@
 	aria-valuemin={_min}
 	aria-valuenow={value}
 	aria-valuetext={ariaValueText(value)}
+	aria-label={ariaLabel}
+	aria-labelledby={ariaLabelledBy}
 	tabindex="0"
 	bind:this={slider}
 	style:--position={position}
 	on:keydown={keyHandler}
 	on:mousedown|self={keyboardOnly ? undefined : jump}
-	on:touchstart={keyboardOnly ? undefined : touch}
-	on:touchmove={keyboardOnly ? undefined : touch}
-	on:touchend={keyboardOnly ? undefined : touch}
+	on:touchstart|passive={keyboardOnly ? undefined : touch}
+	on:touchmove|passive={keyboardOnly ? undefined : touch}
+	on:touchend|passive={keyboardOnly ? undefined : touch}
 >
 	<div class="track" />
 	<div class="thumb" />

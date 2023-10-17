@@ -16,7 +16,7 @@
 
 - 🎹 built-in keyboard navigation
 - 📱 mobile support
-- 🤸‍♂️ accessibility information
+- 🤸‍♂️ accessibility compliant ([see WAI ARIA pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slider/))
 - 🏇 it's compatible with form libraries
 - 🧩 fully customizable
 - 🔨 full typescript support
@@ -24,6 +24,7 @@
 ## Summary
 
 <!-- SUMMARY -->
+
 - [Summary](#summary)
 - [Examples](#examples)
   - [Common props](#common-props)
@@ -33,21 +34,30 @@
 - [API](#api)
   - [Props](#props)
   - [CSS variables](#css-variables)
-<!-- ¤SUMMARY -->
+  <!-- ¤SUMMARY -->
 
 ## Examples
 
 ### Common props
 
-<Slider min={0} max={100} step={5} value={0} name="temperature" />
+<label id="temperature">
+	Exemple (temperature)
+	<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
+</label>
 
 ```svelte
-<Slider min={0} max={100} step={5} value={0} name="temperature" />
+<label id="temperature">
+	Exemple (temperature)
+	<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
+</label>
 ```
 
 ### Track customization
 
-<Slider --track-background="{str}" --track-width="50%" --track-height="20px" />
+<label id="color">
+	Exemple (color)
+	<Slider --track-background="{str}" --track-width="50%" --track-height="20px" ariaLabelledBy="color" />
+</label>
 
 ```svelte
 <script>
@@ -62,7 +72,10 @@
 
 ### Thumb customization
 
-<Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" />
+<label id="amount">
+	Exemple (amount)
+	<Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" ariaLabelledBy="amount" />
+</label>
 
 ```svelte
 <Slider
@@ -73,20 +86,20 @@
 
 ### Vertical slider
 
-<div style:display="flex">
-{#each [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10] as x}
-<Slider
-min={0}
-max={20}
-value={20 - x}
-direction="vertical"
---track-width="240px"
---track-height="24px"
---track-background="#eee"
---thumb-size="24px"
-/>
-{/each}
-</div>
+<label id="price">
+	Exemple (price)
+	<Slider
+		min={0}
+		max={20}
+		value={4}
+		direction="vertical"
+		ariaLabelledBy="price"
+		--track-width="240px"
+		--track-height="24px"
+		--track-background="#eee"
+		--thumb-size="24px"
+	/>
+</label>
 
 ```svelte
 <Slider
@@ -106,19 +119,21 @@ The Slider component has the following props:
 
 <!-- PROPS_Slider.svelte -->
 
-| name | type | default value | usage |
-| --- | --- | --- | --- |
-| min | `string &#124; number` | `0` | min value of the slider |
-| max | `string &#124; number` | `100` | max value of the slider |
-| step | `string &#124; number` | `1` | step value of the slider |
-| value | `number` | `50` | value of the slider |
-| ariaValueText | `(current: number)` |  | method to convert the current value to a string representation of the value for the aria-value props |
-| name | `string &#124; undefined` | `undefined` | input name of the slider |
-| direction | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider |
-| reverse | `boolean` | `false` | if true, the min and max values will be reversed |
-| keyboardOnly | `boolean` | `false` | disables mouse events |
+| name          | type                             | default value  | usage                                                                                                |
+| ------------- | -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
+| min           | `string &#124; number`           | `0`            | min value of the slider                                                                              |
+| max           | `string &#124; number`           | `100`          | max value of the slider                                                                              |
+| step          | `string &#124; number`           | `1`            | step value of the slider                                                                             |
+| value         | `number`                         | `50`           | value of the slider                                                                                  |
+| ariaValueText | `(current: number)`              |                | method to convert the current value to a string representation of the value for the aria-value props |
+| name          | `string &#124; undefined`        | `undefined`    | input name of the slider                                                                             |
+| direction     | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider                                                                              |
+| reverse       | `boolean`                        | `false`        | if true, the min and max values will be reversed                                                     |
+| keyboardOnly  | `boolean`                        | `false`        | disables mouse events                                                                                |
 
 <!-- ~PROPS_Slider.svelte -->
+
+\*\* Be sure to include either `ariaLabel` or `ariaLabelledBy` for accessibility purpose.
 
 ### CSS variables
 
