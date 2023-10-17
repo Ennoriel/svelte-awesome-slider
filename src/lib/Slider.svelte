@@ -42,8 +42,10 @@
 		const inc = e.shiftKey ? _step * 10 : _step;
 		if (e.key === 'ArrowUp' || e.key === 'ArrowRight') {
 			value += inc;
+			e.preventDefault();
 		} else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') {
 			value -= inc;
+			e.preventDefault();
 		} else if (e.key === 'Home') {
 			value = _min;
 		} else if (e.key === 'End') {
