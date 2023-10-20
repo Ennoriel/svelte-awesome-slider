@@ -159,6 +159,8 @@
 @prop direction: 'horizontal' | 'vertical' = 'horizontal' — direction of the slider
 @prop reverse: boolean = false — if true, the min and max values will be reversed
 @prop keyboardOnly: boolean = false — disables mouse events
+@prop ariaLabel: string | undefined = undefined — aria-label props
+@prop ariaLabelledBy: string | undefined = undefined — aria-labelledby props
 -->
 
 <style>

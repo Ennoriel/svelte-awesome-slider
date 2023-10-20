@@ -40,24 +40,19 @@
 
 ### Common props
 
-<label id="temperature">
-	Exemple (temperature)
-	<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
-</label>
+<p id="temperature">Exemple (temperature)</p>
+<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
 
 ```svelte
-<label id="temperature">
-	Exemple (temperature)
-	<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
-</label>
+<p id="temperature">Exemple (temperature)</p>
+<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
 ```
 
 ### Track customization
 
-<label id="color">
-	Exemple (color)
-	<Slider --track-background="{str}" --track-width="50%" --track-height="20px" ariaLabelledBy="color" />
-</label>
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<p id="color">Exemple (color)</p>
+<Slider --track-background="{str}" --track-width="50%" --track-height="20px" ariaLabelledBy="color" />
 
 ```svelte
 <script>
@@ -72,10 +67,9 @@
 
 ### Thumb customization
 
-<label id="amount">
-	Exemple (amount)
-	<Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" ariaLabelledBy="amount" />
-</label>
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<p id="amount">Exemple (amount)</p>
+<Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" ariaLabelledBy="amount" />
 
 ```svelte
 <Slider
@@ -86,20 +80,19 @@
 
 ### Vertical slider
 
-<label id="price">
-	Exemple (price)
-	<Slider
-		min={0}
-		max={20}
-		value={4}
-		direction="vertical"
-		ariaLabelledBy="price"
-		--track-width="240px"
-		--track-height="24px"
-		--track-background="#eee"
-		--thumb-size="24px"
-	/>
-</label>
+<!-- svelte-ignore a11y-label-has-associated-control -->
+<p id="price">Exemple (price)</p>
+<Slider
+	min={0}
+	max={20}
+	value={4}
+	direction="vertical"
+	ariaLabelledBy="price"
+	--track-width="240px"
+	--track-height="24px"
+	--track-background="#eee"
+	--thumb-size="24px"
+/>
 
 ```svelte
 <Slider
@@ -119,17 +112,19 @@ The Slider component has the following props:
 
 <!-- PROPS_Slider.svelte -->
 
-| name          | type                             | default value  | usage                                                                                                |
-| ------------- | -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| min           | `string &#124; number`           | `0`            | min value of the slider                                                                              |
-| max           | `string &#124; number`           | `100`          | max value of the slider                                                                              |
-| step          | `string &#124; number`           | `1`            | step value of the slider                                                                             |
-| value         | `number`                         | `50`           | value of the slider                                                                                  |
-| ariaValueText | `(current: number)`              |                | method to convert the current value to a string representation of the value for the aria-value props |
-| name          | `string &#124; undefined`        | `undefined`    | input name of the slider                                                                             |
-| direction     | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider                                                                              |
-| reverse       | `boolean`                        | `false`        | if true, the min and max values will be reversed                                                     |
-| keyboardOnly  | `boolean`                        | `false`        | disables mouse events                                                                                |
+| name           | type                             | default value  | usage                                                                                                |
+| :------------- | -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
+| min            | `string &#124; number`           | `0`            | min value of the slider                                                                              |
+| max            | `string &#124; number`           | `100`          | max value of the slider                                                                              |
+| step           | `string &#124; number`           | `1`            | step value of the slider                                                                             |
+| value          | `number`                         | `50`           | value of the slider                                                                                  |
+| ariaValueText  | `(current: number)`              |                | method to convert the current value to a string representation of the value for the aria-value props |
+| name           | `string &#124; undefined`        | `undefined`    | input name of the slider                                                                             |
+| direction      | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider                                                                              |
+| reverse        | `boolean`                        | `false`        | if true, the min and max values will be reversed                                                     |
+| keyboardOnly   | `boolean`                        | `false`        | disables mouse events                                                                                |
+| ariaLabel      | `string &#124; undefined`        | `undefined`    | aria-label props                                                                                     |
+| ariaLabelledBy | `string &#124; undefined`        | `undefined`    | aria-labelledby props                                                                                |
 
 <!-- ~PROPS_Slider.svelte -->
 
@@ -139,14 +134,14 @@ The Slider component has the following props:
 
 The slider component can be customized with the following css variables:
 
-| name             | type       | default value   | usage                         |
-| ---------------- | ---------- | --------------- | ----------------------------- |
-| thumb-background | background | linear-gradient | Thumb background              |
-| thumb-border     | border     | none            | Thumb border                  |
-| thumb-size       | dimension  | 16px            | Thumb size                    |
-| track-background | background | linear-gradient | Track background              |
-| track-border     | border     | none            | Track border                  |
-| track-height     | dimension  | 6px             | Track height                  |
-| track-width      | dimension  | unset           | Track width                   |
-| focus-color      | color      | red             | Focus color                   |
-| margin-block     | dimension  | 8px             | Margin block (top and bottom) |
+| name               | type       | default value   | usage                         |
+| :----------------- | ---------- | --------------- | ----------------------------- |
+| --thumb-background | background | linear-gradient | Thumb background              |
+| --thumb-border     | border     | none            | Thumb border                  |
+| --thumb-size       | dimension  | 16px            | Thumb size                    |
+| --track-background | background | linear-gradient | Track background              |
+| --track-border     | border     | none            | Track border                  |
+| --track-height     | dimension  | 6px             | Track height                  |
+| --track-width      | dimension  | unset           | Track width                   |
+| --focus-color      | color      | red             | Focus color                   |
+| --margin-block     | dimension  | 8px             | Margin block (top and bottom) |

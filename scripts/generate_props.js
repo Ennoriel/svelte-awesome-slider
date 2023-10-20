@@ -83,7 +83,7 @@ function replace_content(path, startTag, endTag, str) {
 function generate_docs(path, componentName, componentDocParsed) {
 	const componentDocForComponent =
 		`| name | type | default value | usage |
-| --- | --- | --- | --- |
+| :-- | --- | --- | --- |
 ` +
 		componentDocParsed
 			.map(({ name, type, defaultValue, description }) => {
