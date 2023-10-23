@@ -21,6 +21,8 @@
 - 🧩 fully customizable
 - 🔨 full typescript support
 
+A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this library!
+
 ## Summary
 
 <!-- SUMMARY -->
@@ -112,19 +114,19 @@ The Slider component has the following props:
 
 <!-- PROPS_Slider.svelte -->
 
-| name           | type                             | default value  | usage                                                                                                |
-| :------------- | -------------------------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| min            | `string &#124; number`           | `0`            | min value of the slider                                                                              |
-| max            | `string &#124; number`           | `100`          | max value of the slider                                                                              |
-| step           | `string &#124; number`           | `1`            | step value of the slider                                                                             |
-| value          | `number`                         | `50`           | value of the slider                                                                                  |
-| ariaValueText  | `(current: number)`              |                | method to convert the current value to a string representation of the value for the aria-value props |
-| name           | `string &#124; undefined`        | `undefined`    | input name of the slider                                                                             |
-| direction      | `'horizontal' &#124; 'vertical'` | `'horizontal'` | direction of the slider                                                                              |
-| reverse        | `boolean`                        | `false`        | if true, the min and max values will be reversed                                                     |
-| keyboardOnly   | `boolean`                        | `false`        | disables mouse events                                                                                |
-| ariaLabel      | `string &#124; undefined`        | `undefined`    | aria-label props                                                                                     |
-| ariaLabelledBy | `string &#124; undefined`        | `undefined`    | aria-labelledby props                                                                                |
+| name           | type                             | default value                     | usage                                                                                                                                                                                                                                                                                                                                |
+| :------------- | -------------------------------- | --------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| min            | `string &#124; number`           | `0`                               | min value of the slider                                                                                                                                                                                                                                                                                                              |
+| max            | `string &#124; number`           | `100`                             | max value of the slider                                                                                                                                                                                                                                                                                                              |
+| step           | `string &#124; number`           | `1`                               | step value of the slider                                                                                                                                                                                                                                                                                                             |
+| value          | `number`                         | `50`                              | value of the slider                                                                                                                                                                                                                                                                                                                  |
+| ariaValueText  | `(current: number) => string`    | `(current) => current.toString()` | method to convert the current value to a string representation of the value for the aria-valuetext attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext) |
+| name           | `string &#124; undefined`        | `undefined`                       | input name of the slider                                                                                                                                                                                                                                                                                                             |
+| direction      | `'horizontal' &#124; 'vertical'` | `'horizontal'`                    | direction of the slider                                                                                                                                                                                                                                                                                                              |
+| reverse        | `boolean`                        | `false`                           | if true, the min and max values will be reversed                                                                                                                                                                                                                                                                                     |
+| keyboardOnly   | `boolean`                        | `false`                           | disables mouse events                                                                                                                                                                                                                                                                                                                |
+| ariaLabel      | `string &#124; undefined`        | `undefined`                       | aria-label props                                                                                                                                                                                                                                                                                                                     |
+| ariaLabelledBy | `string &#124; undefined`        | `undefined`                       | aria-labelledby props                                                                                                                                                                                                                                                                                                                |
 
 <!-- ~PROPS_Slider.svelte -->
 
