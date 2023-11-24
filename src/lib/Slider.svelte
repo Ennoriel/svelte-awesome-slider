@@ -33,14 +33,17 @@
 	/** disables mouse events */
 	export let keyboardOnly: boolean = false;
 
+	/** div element representing the slider */
+	export let slider: HTMLDivElement | undefined = undefined;
+
 	/** aria-label props */
 	export let ariaLabel: string | undefined = undefined;
 
 	/** aria-labelledby props */
 	export let ariaLabelledBy: string | undefined = undefined;
 
-	let isDragging = false;
-	let slider: HTMLDivElement | undefined = undefined;
+	/** indicate if the slider is being dragged */
+	export let isDragging: boolean = false;
 
 	function bound(value: number) {
 		const ratio = 1 / _step;
@@ -166,8 +169,10 @@
 @prop direction: 'horizontal' | 'vertical' = 'horizontal' — direction of the slider
 @prop reverse: boolean = false — if true, the min and max values will be reversed
 @prop keyboardOnly: boolean = false — disables mouse events
+@prop slider: HTMLDivElement | undefined = undefined — div element representing the slider
 @prop ariaLabel: string | undefined = undefined — aria-label props
 @prop ariaLabelledBy: string | undefined = undefined — aria-labelledby props
+@prop isDragging: boolean = false — indicate if the slider is being dragged
 -->
 
 <style>
