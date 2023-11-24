@@ -58,17 +58,21 @@
 			e.preventDefault();
 		} else if (e.key === 'Home') {
 			value = _min;
+			e.preventDefault();
 		} else if (e.key === 'End') {
 			value = _max;
+			e.preventDefault();
 		} else if (e.key === 'PageUp') {
 			value += _step * 10;
+			e.preventDefault();
 		} else if (e.key === 'PageDown') {
 			value -= _step * 10;
+			e.preventDefault();
 		}
 		value = bound(value);
 	}
 
-	const a = {
+	const config = {
 		horizontal: {
 			clientSize: 'clientWidth',
 			offset: 'left',
@@ -82,10 +86,10 @@
 	} as const;
 
 	function updateValue(e: { clientX: number; clientY: number }) {
-		const clientWidth = slider?.[a[direction].clientSize] || 120;
-		const sliderOffsetX = slider?.getBoundingClientRect()[a[direction].offset] || 0;
+		const clientWidth = slider?.[config[direction].clientSize] || 120;
+		const sliderOffsetX = slider?.getBoundingClientRect()[config[direction].offset] || 0;
 
-		let offsetX = e[a[direction].client] - sliderOffsetX;
+		let offsetX = e[config[direction].client] - sliderOffsetX;
 		if (direction === 'vertical') offsetX = -1 * offsetX + clientWidth;
 
 		if (reverse) {
@@ -111,7 +115,6 @@
 	}
 
 	function touch(e: TouchEvent) {
-		e.preventDefault();
 		updateValue({
 			clientX: e.changedTouches[0].clientX,
 			clientY: e.changedTouches[0].clientY
@@ -139,9 +142,9 @@
 	style:--position={position}
 	on:keydown={keyHandler}
 	on:mousedown|self={keyboardOnly ? undefined : jump}
-	on:touchstart|passive={keyboardOnly ? undefined : touch}
-	on:touchmove|passive={keyboardOnly ? undefined : touch}
-	on:touchend|passive={keyboardOnly ? undefined : touch}
+	on:touchstart|preventDefault={keyboardOnly ? undefined : touch}
+	on:touchmove|preventDefault={keyboardOnly ? undefined : touch}
+	on:touchend|preventDefault={keyboardOnly ? undefined : touch}
 >
 	<div class="track" />
 	<div class="thumb" />
@@ -171,13 +174,10 @@
 	.slider {
 		---track-width: var(--track-width, unset);
 		---track-height: var(--track-height, 6px);
-		---track-background: var(
-			--track-background,
-			linear-gradient(90deg, #bae6fd 0%, #7dd3fc 35%, #38bdf8 100%)
-		);
+		---track-background: var(--track-background, #949494);
 		---track-border: var(--track-border, none);
 		---thumb-size: var(--thumb-size, 16px);
-		---thumb-background: var(--thumb-background, #666);
+		---thumb-background: var(--thumb-background, #2d2d2d);
 		---thumb-border: var(--thumb-border, none);
 		---position: var(--position, 0px);
 
