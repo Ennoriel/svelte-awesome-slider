@@ -23,14 +23,14 @@ function get_component_content(path) {
 
 function parse_component_props_docs(componentName, componentStr) {
 	const componentDocArray = componentStr.match(
-		/(?=\/\*\*)((?!\*\/).|\r\n)*.*\r\n\s*export (let|const).*/g
+		/(?=\/\*\*)((?!\*\/).|\r?\n)*.*\r?\n\s*export (let|const).*/g
 	);
 
 	if (!componentDocArray) return;
 
 	return componentDocArray.map((t) => {
 		const attrs = t.match(
-			/(?:\/\*\*(?<description>((?!\*\/).|\r\n)*)\*\/\r\n\s*)?export (?:let|const) (?<name>\w+)(?:: (?<type>.*(?= = )))?(?: ?= (?<def>[^;]*))?/m
+			/(?:\/\*\*(?<description>((?!\*\/).|\r?\n)*)\*\/\r?\n\s*)?export (?:let|const) (?<name>\w+)(?:: (?<type>.*(?= = )))?(?: ?= (?<def>[^;]*))?/m
 		);
 
 		const description = attrs.groups.description

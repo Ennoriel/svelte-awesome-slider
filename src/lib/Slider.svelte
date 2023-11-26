@@ -15,7 +15,7 @@
 	export let value: number = 50;
 
 	/**
-	 * method to convert the current value to a string representation of the value for the aria-valuetext attribute.
+	 * method to convert the current value to a string representation of the value for the `aria-valuetext` attribute.
 	 * For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining".
 	 * See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
 	 */
@@ -164,7 +164,7 @@
 @prop max: string | number = 100 — max value of the slider
 @prop step: string | number = 1 — step value of the slider
 @prop value: number = 50 — value of the slider
-@prop ariaValueText: (current: number) =&gt; string = (current) => current.toString() — method to convert the current value to a string representation of the value for the aria-valuetext attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+@prop ariaValueText: (current: number) =&gt; string = (current) => current.toString() — method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
 @prop name: string | undefined = undefined — input name of the slider
 @prop direction: 'horizontal' | 'vertical' = 'horizontal' — direction of the slider
 @prop reverse: boolean = false — if true, the min and max values will be reversed
