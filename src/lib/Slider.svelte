@@ -42,6 +42,9 @@
 	/** aria-labelledby props */
 	export let ariaLabelledBy: string | undefined = undefined;
 
+	/** aria-controls props */
+	export let ariaControls: string | undefined = undefined;
+
 	/** indicate if the slider is being dragged */
 	export let isDragging: boolean = false;
 
@@ -140,6 +143,7 @@
 	aria-valuetext={ariaValueText(value)}
 	aria-label={ariaLabel}
 	aria-labelledby={ariaLabelledBy}
+	aria-controls={ariaControls}
 	tabindex="0"
 	bind:this={slider}
 	style:--position={position}
