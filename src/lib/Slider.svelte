@@ -149,9 +149,9 @@
 	style:--position={position}
 	on:keydown={keyHandler}
 	on:mousedown|self={keyboardOnly ? undefined : jump}
-	on:touchstart|preventDefault={keyboardOnly ? undefined : touch}
-	on:touchmove|preventDefault={keyboardOnly ? undefined : touch}
-	on:touchend|preventDefault={keyboardOnly ? undefined : touch}
+	on:touchstart|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
+	on:touchmove|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
+	on:touchend|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
 >
 	<div class="track" />
 	<div class="thumb" />

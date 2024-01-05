@@ -1,6 +1,6 @@
 {
 	"name": "svelte-awesome-slider",
-	"version": "0.0.10",
+	"version": "0.0.11",
 	"description": "A highly customizable slider component library",
 	"homepage": "https://svelte-awesome-slider.vercel.app",
 	"repository": {
