@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	/** min value of the slider */
 	export let min: string | number = 0;
 	$: _min = typeof min === 'string' ? parseFloat(min) : min;
@@ -48,6 +50,10 @@
 	/** indicate if the slider is being dragged */
 	export let isDragging: boolean = false;
 
+	const dispatch = createEventDispatcher<{
+		input: number;
+	}>();
+
 	function bound(value: number) {
 		const ratio = 1 / _step;
 		const rounded = Math.round(value * ratio) / ratio;
@@ -76,6 +82,7 @@
 			e.preventDefault();
 		}
 		value = bound(value);
+		dispatch('input', value);
 	}
 
 	const config = {
@@ -105,6 +112,7 @@
 		}
 
 		value = bound(value);
+		dispatch('input', value);
 	}
 
 	function jump(e: MouseEvent) {
