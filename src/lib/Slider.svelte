@@ -205,6 +205,11 @@
 		margin: auto;
 		user-select: none;
 		-webkit-user-select: none;
+		background-color: transparent;
+	}
+
+	.slider::before {
+		background-color: transparent;
 	}
 
 	[aria-orientation='horizontal'] {
