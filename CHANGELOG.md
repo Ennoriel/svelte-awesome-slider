@@ -1,5 +1,12 @@
 # svelte-awesome-slider
 
+## 1.1.2
+
+### Patch Changes
+
+- 5df4e28: add svelte 5 to peer dependencies
+- b4cc64c: bump dependencies
+
 ## 1.1.1
 
 ### Patch Changes
