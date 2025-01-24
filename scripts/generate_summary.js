@@ -22,8 +22,5 @@ export function generateSummary() {
 		.map(({ indentation, title, href }) => `${indentation}- [${title}](#${href})`)
 		.join('\n');
 
-	writeFileSync(
-		path,
-		docs.replace(summaryRegexp, `${summaryStartTag}\n${summary}\n${summaryEndTag}`)
-	);
+	writeFileSync(path, docs.replace(summaryRegexp, `${summaryStartTag}\n${summary}\n${summaryEndTag}`));
 }

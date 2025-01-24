@@ -1,8 +1,9 @@
 <script>
 	import Slider from "$lib/Slider.svelte"
 
-	let value = 50
-	let hue = 0
+	// not using runes to make mdsvex happy
+	let value = $state(50)
+	let hue = $state(0)
 
     const str = `
 			linear-gradient(to right, rgba(0,0,0,0), rgba(255,0,0,1)),
@@ -21,33 +22,35 @@
 - 🧩 fully customizable
 - 🔨 full typescript support
 
+This library may not be popular but it's used by my other library [svelte-awesome-color-picker](https://svelte-awesome-color-picker.vercel.app/)!
+
 A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this library!
 
 ## Summary
 
 <!-- SUMMARY -->
 
-- [Summary](#summary)
-- [Examples](#examples)
-  - [Common props](#common-props)
-  - [Track customization](#track-customization)
-  - [Thumb customization](#thumb-customization)
-  - [Vertical slider](#vertical-slider)
-- [API](#api)
-  - [Props](#props)
-  - [CSS variables](#css-variables)
-  <!-- ¤SUMMARY -->
+- [svelte-awesome-slider](#svelte-awesome-slider)
+  - [Summary](#summary)
+  - [Examples](#examples)
+    - [Common props](#common-props)
+    - [Track customization](#track-customization)
+    - [Thumb customization](#thumb-customization)
+    - [Vertical slider](#vertical-slider)
+  - [API](#api)
+    - [Props](#props)
+    - [CSS variables](#css-variables)
 
 ## Examples
 
 ### Common props
 
-<p id="temperature">Exemple (temperature)</p>
-<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
+<p id="temperature">Exemple (temperature: {value})</p>
+<Slider min={0} max={100} step={5} bind:value name="temperature" ariaLabelledBy="temperature" onInput={e => console.log(e)} />
 
 ```svelte
 <p id="temperature">Exemple (temperature)</p>
-<Slider min={0} max={100} step={5} value={0} name="temperature" ariaLabelledBy="temperature" />
+<Slider min={0} max={100} step={5} bind:value name="temperature" ariaLabelledBy="temperature" />
 ```
 
 ### Track customization
@@ -74,10 +77,7 @@ A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this l
 <Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" ariaLabelledBy="amount" />
 
 ```svelte
-<Slider
-	--thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)"
-	--thumb-size="20px"
-/>
+<Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" />
 ```
 
 ### Vertical slider
@@ -114,21 +114,23 @@ The Slider component has the following props:
 
 <!-- PROPS_Slider.svelte -->
 
-| name           | type                              | default value                     | usage                                                                                                                                                                                                                                                                                                                                  |
-| :------------- | --------------------------------- | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| min            | `string &#124; number`            | `0`                               | min value of the slider                                                                                                                                                                                                                                                                                                                |
-| max            | `string &#124; number`            | `100`                             | max value of the slider                                                                                                                                                                                                                                                                                                                |
-| step           | `string &#124; number`            | `1`                               | step value of the slider                                                                                                                                                                                                                                                                                                               |
-| value          | `number`                          | `50`                              | value of the slider                                                                                                                                                                                                                                                                                                                    |
-| ariaValueText  | `(current: number) => string`     | `(current) => current.toString()` | method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext) |
-| name           | `string &#124; undefined`         | `undefined`                       | input name of the slider                                                                                                                                                                                                                                                                                                               |
-| direction      | `'horizontal' &#124; 'vertical'`  | `'horizontal'`                    | direction of the slider                                                                                                                                                                                                                                                                                                                |
-| reverse        | `boolean`                         | `false`                           | if true, the min and max values will be reversed                                                                                                                                                                                                                                                                                       |
-| keyboardOnly   | `boolean`                         | `false`                           | disables mouse events                                                                                                                                                                                                                                                                                                                  |
-| slider         | `HTMLDivElement &#124; undefined` | `undefined`                       | div element representing the slider                                                                                                                                                                                                                                                                                                    |
-| ariaLabel      | `string &#124; undefined`         | `undefined`                       | aria-label props                                                                                                                                                                                                                                                                                                                       |
-| ariaLabelledBy | `string &#124; undefined`         | `undefined`                       | aria-labelledby props                                                                                                                                                                                                                                                                                                                  |
-| isDragging     | `boolean`                         | `false`                           | indicate if the slider is being dragged                                                                                                                                                                                                                                                                                                |
+| name           | type                              | default value  | usage                                                                                                                                                                                                                                                                                                                                  |
+| :------------- | --------------------------------- | -------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| min            | `string &#124; number`            | `0`            | min value of the slider                                                                                                                                                                                                                                                                                                                |
+| max            | `string &#124; number`            | `100`          | max value of the slider                                                                                                                                                                                                                                                                                                                |
+| step           | `string &#124; number`            | `1`            | step value of the slider                                                                                                                                                                                                                                                                                                               |
+| value          | `number`                          | `50`           | **bindable**<br>value of the slider                                                                                                                                                                                                                                                                                                    |
+| ariaValueText  | `(current: number) => string`     | `(current)`    | method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext) |
+| name           | `string &#124; undefined`         |                | input name of the slider                                                                                                                                                                                                                                                                                                               |
+| direction      | `'horizontal' &#124; 'vertical'`  | `'horizontal'` | direction of the slider                                                                                                                                                                                                                                                                                                                |
+| reverse        | `boolean`                         | `false`        | if true, the min and max values will be reversed                                                                                                                                                                                                                                                                                       |
+| keyboardOnly   | `boolean`                         | `false`        | disables mouse events                                                                                                                                                                                                                                                                                                                  |
+| slider         | `HTMLDivElement &#124; undefined` |                | div element representing the slider                                                                                                                                                                                                                                                                                                    |
+| ariaLabel      | `string &#124; undefined`         |                | aria-label props                                                                                                                                                                                                                                                                                                                       |
+| ariaLabelledBy | `string &#124; undefined`         |                | aria-labelledby props                                                                                                                                                                                                                                                                                                                  |
+| ariaControls   | `string &#124; undefined`         |                | aria-controls props                                                                                                                                                                                                                                                                                                                    |
+| isDragging     | `boolean`                         | `false`        | indicate if the slider is being dragged                                                                                                                                                                                                                                                                                                |
+| onInput        | `(value: number) => void`         |                | **event**<br>listener, dispatch an event when the user drags, clicks or tabs at the slider                                                                                                                                                                                                                                             |
 
 <!-- ~PROPS_Slider.svelte -->
 

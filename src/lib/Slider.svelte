@@ -1,58 +1,64 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
+	interface Props {
+		/** min value of the slider */
+		min?: string | number;
+		/** max value of the slider */
+		max?: string | number;
+		/** step value of the slider */
+		step?: string | number;
+		/** value of the slider */
+		value?: number;
+		/**
+		 * method to convert the current value to a string representation of the value for the `aria-valuetext` attribute.
+		 * For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining".
+		 * See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+		 */
+		ariaValueText?: (current: number) => string;
+		/** input name of the slider */
+		name?: string | undefined;
+		/** direction of the slider */
+		direction?: 'horizontal' | 'vertical';
+		/** if true, the min and max values will be reversed */
+		reverse?: boolean;
+		/** disables mouse events */
+		keyboardOnly?: boolean;
+		/** div element representing the slider */
+		slider?: HTMLDivElement | undefined;
+		/** aria-label props */
+		ariaLabel?: string | undefined;
+		/** aria-labelledby props */
+		ariaLabelledBy?: string | undefined;
+		/** aria-controls props */
+		ariaControls?: string | undefined;
+		/** indicate if the slider is being dragged */
+		isDragging?: boolean;
+		/** listener, dispatch an event when the user drags, clicks or tabs at the slider */
+		onInput?: (value: number) => void;
+	}
 
-	/** min value of the slider */
-	export let min: string | number = 0;
-	$: _min = typeof min === 'string' ? parseFloat(min) : min;
+	$effect(() => console.log('!!', onInput));
 
-	/** max value of the slider */
-	export let max: string | number = 100;
-	$: _max = typeof max === 'string' ? parseFloat(max) : max;
+	let {
+		min = 0,
+		max = 100,
+		step = 1,
+		value = $bindable(50),
+		ariaValueText = (current) => current.toString(),
+		name,
+		direction = 'horizontal',
+		reverse = false,
+		keyboardOnly = false,
+		slider,
+		ariaLabel,
+		ariaLabelledBy,
+		ariaControls,
+		isDragging = false,
+		onInput
+	}: Props = $props();
 
-	/** step value of the slider */
-	export let step: string | number = 1;
-	$: _step = typeof step === 'string' ? parseFloat(step) : step;
-
-	/** value of the slider */
-	export let value: number = 50;
-
-	/**
-	 * method to convert the current value to a string representation of the value for the `aria-valuetext` attribute.
-	 * For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining".
-	 * See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
-	 */
-	export let ariaValueText: (current: number) => string = (current) => current.toString();
-
-	/** input name of the slider */
-	export let name: string | undefined = undefined;
-
-	/** direction of the slider */
-	export let direction: 'horizontal' | 'vertical' = 'horizontal';
-
-	/** if true, the min and max values will be reversed */
-	export let reverse: boolean = false;
-
-	/** disables mouse events */
-	export let keyboardOnly: boolean = false;
-
-	/** div element representing the slider */
-	export let slider: HTMLDivElement | undefined = undefined;
-
-	/** aria-label props */
-	export let ariaLabel: string | undefined = undefined;
-
-	/** aria-labelledby props */
-	export let ariaLabelledBy: string | undefined = undefined;
-
-	/** aria-controls props */
-	export let ariaControls: string | undefined = undefined;
-
-	/** indicate if the slider is being dragged */
-	export let isDragging: boolean = false;
-
-	const dispatch = createEventDispatcher<{
-		input: number;
-	}>();
+	const _min = $derived(typeof min === 'string' ? parseFloat(min) : min);
+	const _max = $derived(typeof max === 'string' ? parseFloat(max) : max);
+	const _step = $derived(typeof step === 'string' ? parseFloat(step) : step);
 
 	function bound(value: number) {
 		const ratio = 1 / _step;
@@ -82,7 +88,7 @@
 			e.preventDefault();
 		}
 		value = bound(value);
-		dispatch('input', value);
+		onInput?.(value);
 	}
 
 	const config = {
@@ -112,7 +118,7 @@
 		}
 
 		value = bound(value);
-		dispatch('input', value);
+		onInput?.(value);
 	}
 
 	function jump(e: MouseEvent) {
@@ -129,13 +135,14 @@
 	}
 
 	function touch(e: TouchEvent) {
+		e.preventDefault();
 		updateValue({
 			clientX: e.changedTouches[0].clientX,
 			clientY: e.changedTouches[0].clientY
 		});
 	}
 
-	$: position = (((value - _min) / (_max - _min)) * 1).toFixed(4);
+	const position = $derived((((value - _min) / (_max - _min)) * 1).toFixed(4));
 </script>
 
 <svelte:window on:mousemove={drag} on:mouseup={endDrag} />
@@ -155,14 +162,14 @@
 	tabindex="0"
 	bind:this={slider}
 	style:--position={position}
-	on:keydown={keyHandler}
-	on:mousedown|self={keyboardOnly ? undefined : jump}
-	on:touchstart|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
-	on:touchmove|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
-	on:touchend|nonpassive|preventDefault={keyboardOnly ? undefined : touch}
+	onkeydown={keyHandler}
+	onmousedown={keyboardOnly ? undefined : jump}
+	ontouchstart={keyboardOnly ? undefined : touch}
+	ontouchmove={keyboardOnly ? undefined : touch}
+	ontouchend={keyboardOnly ? undefined : touch}
 >
-	<div class="track" />
-	<div class="thumb" />
+	<div class="track"></div>
+	<div class="thumb"></div>
 </div>
 
 {#if name}
@@ -176,15 +183,17 @@
 @prop max: string | number = 100 — max value of the slider
 @prop step: string | number = 1 — step value of the slider
 @prop value: number = 50 — value of the slider
-@prop ariaValueText: (current: number) =&gt; string = (current) => current.toString() — method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
-@prop name: string | undefined = undefined — input name of the slider
+@prop ariaValueText: (current: number) =&gt; string = (current) — method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext)
+@prop name: string | undefined — input name of the slider
 @prop direction: 'horizontal' | 'vertical' = 'horizontal' — direction of the slider
 @prop reverse: boolean = false — if true, the min and max values will be reversed
 @prop keyboardOnly: boolean = false — disables mouse events
-@prop slider: HTMLDivElement | undefined = undefined — div element representing the slider
-@prop ariaLabel: string | undefined = undefined — aria-label props
-@prop ariaLabelledBy: string | undefined = undefined — aria-labelledby props
+@prop slider: HTMLDivElement | undefined — div element representing the slider
+@prop ariaLabel: string | undefined — aria-label props
+@prop ariaLabelledBy: string | undefined — aria-labelledby props
+@prop ariaControls: string | undefined — aria-controls props
 @prop isDragging: boolean = false — indicate if the slider is being dragged
+@prop onInput: (value: number) =&gt; void — listener, dispatch an event when the user drags, clicks or tabs at the slider
 -->
 
 <style>
@@ -266,9 +275,7 @@
 		box-sizing: border-box;
 
 		transform: translate(-50%, -50%);
-		--margin-left: (
-				2 * var(---track-height) - var(---thumb-size) - var(---margin-inline-thumb-smaller)
-			) / 2;
+		--margin-left: (2 * var(---track-height) - var(---thumb-size) - var(---margin-inline-thumb-smaller)) / 2;
 		--left: calc(var(---position) * (100% - 2 * var(--margin-left)) + var(--margin-left));
 	}
 

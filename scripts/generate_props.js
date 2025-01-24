@@ -7,13 +7,11 @@ function read_files(path) {
 		.map((folder) => `${folder.path}/${folder.name}`);
 	return [
 		...folders.map(read_files).flat(),
-		...folderAndFiles
-			.filter((fileOrFolder) => fileOrFolder.isFile())
-			.map((folder) => `${folder.path}/${folder.name}`)
+		...folderAndFiles.filter((fileOrFolder) => fileOrFolder.isFile()).map((folder) => `${folder.path}/${folder.name}`)
 	];
 }
 
-function get_Component_name(path) {
+function get_component_name(path) {
 	return path.split('/').at(-1).split('.').at(0);
 }
 
@@ -21,37 +19,94 @@ function get_component_content(path) {
 	return readFileSync(path).toString();
 }
 
-function parse_component_props_docs(componentName, componentStr) {
-	const componentDocArray = componentStr.match(
-		/(?=\/\*\*)((?!\*\/).|\r?\n)*.*\r?\n\s*export (let|const).*/g
-	);
+/**
+ * @param {string} componentStr - raw string component
+ * @returns raw string of the script tag
+ */
+export function getScriptStr(componentStr) {
+	let scriptTagStr = componentStr.match(/<script(?<result>.*)<\/script>/s);
+	scriptTagStr = scriptTagStr.groups?.result;
+	return scriptTagStr;
+}
 
-	if (!componentDocArray) return;
+/**
+ * @param {string} scriptTagStr - raw string script tag
+ * @returns raw string of the interface body
+ */
+export function getInterfacePropsStr(scriptTagStr) {
+	let interfacePropsStr = scriptTagStr.split('interface Props {')[1].split('	}')[0];
+	interfacePropsStr = interfacePropsStr?.replace(/\t+/g, '')?.trim();
+	return interfacePropsStr;
+}
 
-	return componentDocArray.map((t) => {
-		const attrs = t.match(
-			/(?:\/\*\*(?<description>((?!\*\/).|\r?\n)*)\*\/\r?\n\s*)?export (?:let|const) (?<name>\w+)(?:: (?<type>.*(?= = )))?(?: ?= (?<def>[^;]*))?/m
-		);
+/**
+ * @param {string} scriptTagStr - raw string script tag
+ * @returns raw string of the destructured props
+ */
+export function getDestructuredPropsStr(scriptTagStr) {
+	let destructuredPropsStr = scriptTagStr.match(/let \{(?<result>.*)\}: Props = \$props\(\);/s);
+	destructuredPropsStr = destructuredPropsStr?.groups?.result;
+	destructuredPropsStr = destructuredPropsStr?.replace(/\t+/g, '')?.trim();
+	return destructuredPropsStr;
+}
 
-		const description = attrs.groups.description
-			?.split('*')
-			.map((str) => str.trim())
-			.join(' ')
-			.trim();
-		const name = attrs.groups.name?.trim();
-		const type = attrs.groups.type?.trim();
-		const defaultValue = attrs.groups.def?.trim();
-
-		const warns = [];
-		if (!type) warns.push('type');
-		if (!description) warns.push('description');
-		if (warns.length)
-			console.warn(
-				`WARN: component ${componentName}, props ${name} does not have a ${warns.join(', ')}`
-			);
-
-		return { name, type, defaultValue, description };
+export function extractMetadataFromInterface(interfacePropsStr) {
+	let metadata = interfacePropsStr.split(/;\n/);
+	return metadata.map((m) => {
+		const [description, rest] = m.split('*/');
+		const [name, ...type] = rest.split(':');
+		return {
+			description: description.replace('/**', '').replace(/\*/g, '').replace(/\n/g, ' ').replace(/\s+/g, ' ').trim(),
+			isOptional: name.includes('?'),
+			name: name.replace('?', '').trim(),
+			type: type
+				.join(':')
+				.trim()
+				.replace(';', '')
+				.replace('\n', ' ')
+				.replace(/^(\| )?/, '')
+		};
 	});
+}
+
+export function extractMetadataFromProps(destructuredPropsStr) {
+	let metadata = destructuredPropsStr.includes('\n')
+		? destructuredPropsStr.split('\n')
+		: destructuredPropsStr.split(',');
+	return metadata.map((m) => {
+		const [name, defaultValue = ''] = m.split('=');
+		const isBindable = !!defaultValue?.includes('$bindable');
+		const isEvent = name.startsWith('on');
+		return {
+			name: name.replace(',', '').trim(),
+			isBindable,
+			isEvent,
+			defaultValue:
+				(isBindable ? defaultValue.match(/\$bindable\((?<result>.*)\)/s)?.groups?.result : defaultValue)
+					?.replace(/,?$/, '')
+					?.trim() ?? ''
+		};
+	});
+}
+
+function mergeArraysByKey(arrayA, arrayB, key) {
+	const map = new Map();
+	arrayA.forEach((item) => map.set(key(item), item));
+	arrayB.forEach((item) => map.set(key(item), { ...map.get(key(item)), ...item }));
+	return Array.from(map.values());
+}
+
+export function parse_component_props_docs(componentName, componentStr) {
+	console.log(componentName);
+	const scriptTagStr = getScriptStr(componentStr);
+	const interfacePropsStr = getInterfacePropsStr(scriptTagStr);
+	const metadataA = extractMetadataFromInterface(interfacePropsStr);
+
+	const destructuredPropsStr = getDestructuredPropsStr(scriptTagStr);
+	const metadataB = extractMetadataFromProps(destructuredPropsStr);
+
+	const allMetadata = mergeArraysByKey(metadataA, metadataB, (item) => item.name);
+	return allMetadata;
 }
 
 function generate_component_props_docs(path, componentStr, componentDocParsed) {
@@ -64,34 +119,31 @@ function generate_component_props_docs(path, componentStr, componentDocParsed) {
 		})
 		.join('\n');
 
-	writeFileSync(
-		path,
-		componentStr.replace(/\*\*Props\*\*.*-->/s, `**Props**\n${componentDocForComponent}\n-->`)
-	);
+	writeFileSync(path, componentStr.replace(/\*\*Props\*\*.*-->/s, `**Props**\n${componentDocForComponent}\n-->`));
 }
 
 function replace_content(path, startTag, endTag, str) {
-	// console.log(path, startTag, endTag);
 	const file = readFileSync(path).toString();
 
-	writeFileSync(
-		path,
-		file.replace(new RegExp(`${startTag}.*${endTag}`, 's'), `${startTag}\n\n${str}\n\n${endTag}`)
-	);
+	writeFileSync(path, file.replace(new RegExp(`${startTag}.*${endTag}`, 's'), `${startTag}\n\n${str}\n\n${endTag}`));
 }
 
 function generate_docs(path, componentName, componentDocParsed) {
 	const componentDocForComponent =
 		`| name | type | default value | usage |
-| :-- | --- | --- | --- |
-` +
+	| :-- | --- | --- | --- |
+	` +
 		componentDocParsed
-			.map(({ name, type, defaultValue, description }) => {
+			.map(({ name, type, defaultValue, description, isOptional, isBindable, isEvent }) => {
+				const _type = `\`${type.replace(/\|/g, '&#124;')}\``;
 				const _defaultValue = defaultValue ? `\`${defaultValue}\`` : '';
-				return `| ${name} | \`${type?.replace(
-					/\|/g,
-					'&#124;'
-				)}\` | ${_defaultValue} | ${description} |`;
+				let kind = [];
+				if (!isOptional) kind.push('required');
+				if (isBindable) kind.push('bindable');
+				if (isEvent) kind.push('event');
+				kind = kind.map((k) => `**${k}**`).join(', ');
+				const _description = kind ? `${kind}<br\>${description}` : description;
+				return `| ${name} | ${_type} | ${_defaultValue} | ${_description} |`;
 			})
 			.join('\n');
 
@@ -109,11 +161,12 @@ function generate_docs(path, componentName, componentDocParsed) {
  *   - replace the lib doc (from "<!-- PROPS_${componentName}.svelte -->" to "<!-- ~PROPS_${componentName}.svelte -->")
  */
 export function generateProps(documentationPath) {
+	console.log('start generating doc for components:');
 	read_files('./src/lib')
 		.filter((file) => file.endsWith('.svelte'))
 		.map((path) => ({
 			path,
-			componentName: get_Component_name(path),
+			componentName: get_component_name(path),
 			componentStr: get_component_content(path)
 		}))
 		.map(({ path, componentName, componentStr }) => ({
