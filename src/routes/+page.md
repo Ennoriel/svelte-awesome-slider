@@ -55,9 +55,8 @@ A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this l
 
 ### Track customization
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
 <p id="color">Exemple (color)</p>
-<Slider --track-background="{str}" --track-width="50%" --track-height="20px" ariaLabelledBy="color" />
+<Slider --track-background={str} --track-width="50%" --track-height="20px" ariaLabelledBy="color" />
 
 ```svelte
 <script>
@@ -72,7 +71,6 @@ A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this l
 
 ### Thumb customization
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
 <p id="amount">Exemple (amount)</p>
 <Slider --thumb-background="radial-gradient(circle, #84cc16 0%, #365314 100%)" --thumb-size="20px" ariaLabelledBy="amount" />
 
@@ -82,7 +80,6 @@ A huge thanks to [MacFJA](https://github.com/MacFJA) who helped me making this l
 
 ### Vertical slider
 
-<!-- svelte-ignore a11y-label-has-associated-control -->
 <p id="price">Exemple (price)</p>
 <Slider
 	min={0}
@@ -119,7 +116,7 @@ The Slider component has the following props:
 | min            | `string &#124; number`            | `0`            | min value of the slider                                                                                                                                                                                                                                                                                                                |
 | max            | `string &#124; number`            | `100`          | max value of the slider                                                                                                                                                                                                                                                                                                                |
 | step           | `string &#124; number`            | `1`            | step value of the slider                                                                                                                                                                                                                                                                                                               |
-| value          | `number`                          | `50`           | **bindable**<br>value of the slider                                                                                                                                                                                                                                                                                                    |
+| value          | `number`                          | `50`           | **bindable**<br\>value of the slider                                                                                                                                                                                                                                                                                                   |
 | ariaValueText  | `(current: number) => string`     | `(current)`    | method to convert the current value to a string representation of the value for the `aria-valuetext` attribute. For example, a battery meter value might be conveyed as aria-valuetext="8% (34 minutes) remaining". See [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-valuetext) |
 | name           | `string &#124; undefined`         |                | input name of the slider                                                                                                                                                                                                                                                                                                               |
 | direction      | `'horizontal' &#124; 'vertical'`  | `'horizontal'` | direction of the slider                                                                                                                                                                                                                                                                                                                |
@@ -130,7 +127,7 @@ The Slider component has the following props:
 | ariaLabelledBy | `string &#124; undefined`         |                | aria-labelledby props                                                                                                                                                                                                                                                                                                                  |
 | ariaControls   | `string &#124; undefined`         |                | aria-controls props                                                                                                                                                                                                                                                                                                                    |
 | isDragging     | `boolean`                         | `false`        | indicate if the slider is being dragged                                                                                                                                                                                                                                                                                                |
-| onInput        | `(value: number) => void`         |                | **event**<br>listener, dispatch an event when the user drags, clicks or tabs at the slider                                                                                                                                                                                                                                             |
+| onInput        | `(value: number) => void`         |                | **event**<br\>listener, dispatch an event when the user drags, clicks or tabs at the slider                                                                                                                                                                                                                                            |
 
 <!-- ~PROPS_Slider.svelte -->
 

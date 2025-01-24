@@ -142,7 +142,7 @@ function generate_docs(path, componentName, componentDocParsed) {
 				if (isBindable) kind.push('bindable');
 				if (isEvent) kind.push('event');
 				kind = kind.map((k) => `**${k}**`).join(', ');
-				const _description = kind ? `${kind}<br\>${description}` : description;
+				const _description = kind ? `${kind}<br\\>${description}` : description;
 				return `| ${name} | ${_type} | ${_defaultValue} | ${_description} |`;
 			})
 			.join('\n');
