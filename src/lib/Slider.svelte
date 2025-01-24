@@ -215,6 +215,7 @@
 		user-select: none;
 		-webkit-user-select: none;
 		background-color: transparent;
+		cursor: pointer;
 	}
 
 	.slider::before {
