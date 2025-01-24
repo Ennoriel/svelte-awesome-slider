@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-      - beta
+      - release
   workflow_dispatch:
 
 jobs:
@@ -46,6 +46,6 @@ jobs:
         run: pnpm package
 
       - name: 🔨 Publish library
-        run: pnpm publish
+        run: pnpm publish --tag beta
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
