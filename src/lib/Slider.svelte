@@ -36,8 +36,6 @@
 		onInput?: (value: number) => void;
 	}
 
-	$effect(() => console.log('!!', onInput));
-
 	let {
 		min = 0,
 		max = 100,
