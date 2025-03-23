@@ -1,5 +1,16 @@
 # svelte-awesome-slider
 
+## 2.0.0
+
+### Major Changes
+
+- b4976ba: migrate codebase to svelte 5
+
+### Patch Changes
+
+- b6f70e9: fix svelte & lint warnings
+- f49cbcf: add cursor pointer
+
 ## 1.1.2
 
 ### Patch Changes
