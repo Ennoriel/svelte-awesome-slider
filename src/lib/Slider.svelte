@@ -230,7 +230,6 @@
 	}
 
 	[aria-orientation='vertical'] {
-		width: calc(max(var(---track-height), var(---thumb-size)) + 4px);
 		width: max(var(---track-height), var(---thumb-size));
 		height: var(---track-width);
 		max-height: calc(100% - 2 * var(---margin-inline-thumb-bigger));
