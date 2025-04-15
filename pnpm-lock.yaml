@@ -16,10 +16,10 @@ importers:
         version: 1.2.7(eslint@9.23.0)
       '@sveltejs/adapter-vercel':
         specifier: ^5.6.3
-        version: 5.6.3(@sveltejs/kit@2.20.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2))(rollup@4.37.0)
+        version: 5.6.3(@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2))(rollup@4.37.0)
       '@sveltejs/kit':
         specifier: ^2.20.2
-        version: 2.20.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)
+        version: 2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)
       '@sveltejs/package':
         specifier: ^2.3.10
         version: 2.3.10(svelte@5.25.3)(typescript@5.8.2)
@@ -557,8 +557,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@polka/url@1.0.0-next.28':
-    resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
+  '@polka/url@1.0.0-next.29':
+    resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
 
   '@publint/pack@0.1.2':
     resolution: {integrity: sha512-S+9ANAvUmjutrshV4jZjaiG8XQyuJIZ8a4utWmN/vW1sgQ9IfBnPndwkmQYw53QmouOIytT874u65HEmu6H5jw==}
@@ -683,8 +683,8 @@ packages:
     peerDependencies:
       '@sveltejs/kit': ^2.4.0
 
-  '@sveltejs/kit@2.20.2':
-    resolution: {integrity: sha512-Dv8TOAZC9vyfcAB9TMsvUEJsRbklRTeNfcYBPaeH6KnABJ99i3CvCB2eNx8fiiliIqe+9GIchBg4RodRH5p1BQ==}
+  '@sveltejs/kit@2.20.6':
+    resolution: {integrity: sha512-ImUkSQ//Xf4N9r0HHAe5vRA7RyQ7U1Ue1YUT235Ig+IiIqbsixEulHTHrP5LtBiC8xOkJoPZQ1VZ/nWHNOaGGw==}
     engines: {node: '>=18.13'}
     hasBin: true
     peerDependencies:
@@ -2314,7 +2314,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@polka/url@1.0.0-next.28': {}
+  '@polka/url@1.0.0-next.29': {}
 
   '@publint/pack@0.1.2': {}
 
@@ -2390,9 +2390,9 @@ snapshots:
     dependencies:
       acorn: 8.14.1
 
-  '@sveltejs/adapter-vercel@5.6.3(@sveltejs/kit@2.20.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2))(rollup@4.37.0)':
+  '@sveltejs/adapter-vercel@5.6.3(@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2))(rollup@4.37.0)':
     dependencies:
-      '@sveltejs/kit': 2.20.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)
+      '@sveltejs/kit': 2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)
       '@vercel/nft': 0.29.2(rollup@4.37.0)
       esbuild: 0.24.2
     transitivePeerDependencies:
@@ -2400,7 +2400,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@sveltejs/kit@2.20.2(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)':
+  '@sveltejs/kit@2.20.6(@sveltejs/vite-plugin-svelte@5.0.3(svelte@5.25.3)(vite@6.2.2))(svelte@5.25.3)(vite@6.2.2)':
     dependencies:
       '@sveltejs/vite-plugin-svelte': 5.0.3(svelte@5.25.3)(vite@6.2.2)
       '@types/cookie': 0.6.0
@@ -3385,7 +3385,7 @@ snapshots:
 
   sirv@3.0.1:
     dependencies:
-      '@polka/url': 1.0.0-next.28
+      '@polka/url': 1.0.0-next.29
       mrmime: 2.0.1
       totalist: 3.0.1
 
